@@ -50,9 +50,10 @@ RUN mkdir -p /opt/omero && \
     pip install omego && \
     cd /opt/omero && \
     omego download py --sym OMERO.py && \
-    adduser -h /opt/omero -D omero && \
+    rm OMERO.py*zip && \
     pip install -r /opt/omero/OMERO.py/share/web/requirements-py27.txt && \
     ln -s /opt/omero/OMERO.py/bin/omero /usr/local/bin/ && \
+    adduser -h /opt/omero -D omero && \
     chown -R omero:omero /opt/omero/OMERO.py/
 
 USER omero
