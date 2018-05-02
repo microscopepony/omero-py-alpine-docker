@@ -35,3 +35,25 @@ RUN apk --no-cache add --virtual build-dependencies \
     cd .. && \
     rm -rf zeroc-ice-3.6.4 && \
     apk del build-dependencies
+
+# OMERO web requirements
+RUN apk --no-cache add \
+    py-jinja2 \
+    py-gunicorn \
+    py-pillow \
+    py-redis \
+    py-six \
+    py-yaml
+
+# OMERO web
+RUN mkdir -p /opt/omero && \
+    pip install omego && \
+    cd /opt/omero && \
+    omego download py --sym OMERO.py && \
+    adduser -h /opt/omero -D omero && \
+    pip install -r /opt/omero/OMERO.py/share/web/requirements-py27.txt && \
+    ln -s /opt/omero/OMERO.py/bin/omero /usr/local/bin/ && \
+    chown -R omero:omero /opt/omero/OMERO.py/
+
+USER omero
+CMD ["omero"]
