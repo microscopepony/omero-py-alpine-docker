@@ -1,0 +1,12 @@
+--- OMERO.py/lib/python/omero/gateway/__init__.py.orig
++++ OMERO.py/lib/python/omero/gateway/__init__.py
+@@ -65,8 +65,7 @@
+         import ImageDraw
+         import ImageFont
+     except:
+-        logger.error(
+-            'No Pillow installed, line plots and split channel will fail!')
++        pass
+ 
+ 
+ def omero_type(val):

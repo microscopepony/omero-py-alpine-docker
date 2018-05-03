@@ -38,6 +38,8 @@ RUN apk --no-cache add --virtual build-dependencies \
     rm -rf zeroc-ice-3.6.4 && \
     apk del build-dependencies
 
+# Get rid of the annoying "ERROR:omero.gateway:No Pillow installed" message
+ADD no-pillow-message.patch /root/
 RUN apk --no-cache add \
     # omego requires six \
     py2-six && \
@@ -48,7 +50,8 @@ RUN apk --no-cache add \
     rm OMERO.py*zip && \
     ln -s /opt/omero/OMERO.py/bin/omero /usr/local/bin/ && \
     adduser -h /opt/omero -D omero && \
-    chown -R omero:omero /opt/omero/OMERO.py/
+    chown -R omero:omero /opt/omero/OMERO.py/ && \
+    patch -p0 < /root/no-pillow-message.patch
 
 # OMERO.web requirements \
 #RUN apk --no-cache add \
