@@ -1,0 +1,7 @@
+language: python
+services:
+  - docker
+addons:
+script:
+  - docker build -t omero-py-alpine-docker .
+  - docker run --rm omero-py-alpine-docker omero version
