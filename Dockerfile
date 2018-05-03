@@ -15,6 +15,8 @@ RUN apk --no-cache add \
 # Can't use "pip install zeroc-ice==3.6.4" because musl is missing the
 # non-standard glibc symbols PTHREAD_MUTEX_*_NP
 # http://elias.rhi.hi.is/libc/Mutexes.html
+# This has been fixed in 3.7.1
+# https://github.com/zeroc-ice/ice/commit/bf1057ad57b46bda03ebc5c7ce58358d94e448fc
 
 # Ice build
 RUN apk --no-cache add --virtual build-dependencies \
