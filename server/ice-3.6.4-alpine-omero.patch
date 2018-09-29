@@ -1,0 +1,74 @@
+--- ice-3.6.4.orig/cpp/config/Make.rules.Linux
++++ ice-3.6.4/cpp/config/Make.rules.Linux
+@@ -211,7 +211,7 @@
+
+ endif
+
+-BASELIBS		= -lIceUtil
++BASELIBS		= -lIceUtil -lexecinfo
+ ifneq ($(NPTL_LIB),)
+     CXXFLAGS		+= $(NPTL_FLAGS)
+     BASELIBS		:= $(NPTL_LIB) $(BASELIBS)
+@@ -221,7 +221,7 @@
+ LIBS		= $(BZIP2_RPATH_LINK) -lIce $(BASELIBS)
+
+ CRYPT_OS_LIBS   = -lcrypt
+-ICEUTIL_OS_LIBS = -lrt $(OPENSSL_RPATH_LINK) -lcrypto
++ICEUTIL_OS_LIBS = -lrt $(OPENSSL_RPATH_LINK) -lcrypto -lexecinfo
+ ICE_OS_LIBS     = -ldl
+
+ PLATFORM_HAS_READLINE   = yes
+--- ice-3.6.4.orig/cpp/include/IceUtil/Mutex.h
++++ ice-3.6.4/cpp/include/IceUtil/Mutex.h
+@@ -232,7 +232,7 @@
+     //
+ #ifndef NDEBUG
+ #if defined(__linux) && !defined(__USE_UNIX98)
+-    rc = pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_ERRORCHECK_NP);
++    rc = pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_ERRORCHECK);
+ #else
+     rc = pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_ERRORCHECK);
+ #endif
+--- ice-3.6.4.orig/cpp/src/Ice/Network.h
++++ ice-3.6.4/cpp/src/Ice/Network.h
+@@ -36,7 +36,7 @@
+ #   include <unistd.h>
+ #   include <fcntl.h>
+ #   include <sys/socket.h>
+-#   include <sys/poll.h>
++#   include <poll.h>
+ #   include <netinet/in.h>
+ #   include <netinet/tcp.h>
+ #   include <arpa/inet.h>
+--- ice-3.6.4.orig/cpp/src/Ice/Selector.h
++++ ice-3.6.4/cpp/src/Ice/Selector.h
+@@ -25,7 +25,7 @@
+ #elif defined(ICE_USE_IOCP)
+ // Nothing to include
+ #elif defined(ICE_USE_POLL)
+-#   include <sys/poll.h>
++#   include <poll.h>
+ #endif
+
+ #if defined(ICE_USE_CFSTREAM)
+--- ice-3.6.4.orig/cpp/src/IceUtil/RecMutex.cpp
++++ ice-3.6.4/cpp/src/IceUtil/RecMutex.cpp
+@@ -132,7 +132,7 @@
+     }
+
+ #if defined(__linux) && !defined(__USE_UNIX98)
+-    rc = pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE_NP);
++    rc = pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
+ #else
+     rc = pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
+ #endif
+--- ice-3.6.4.orig/cpp/src/slice2cpp/Makefile
++++ ice-3.6.4/cpp/src/slice2cpp/Makefile
+@@ -24,6 +24,7 @@
+ ifneq ($(findstring MINGW,$(UNAME)),)
+ LDEXEFLAGS 	:= -municode $(LDEXEFLAGS)
+ endif
++SLICE_LIBS 	:= $(SLICE_LIBS) -lexecinfo
+
+ $(NAME): $(OBJS)
+ 	rm -f $@
