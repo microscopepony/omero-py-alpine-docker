@@ -1,0 +1,31 @@
+--- /opt/omero/OMERO.py-5.4.8-ice36-b99/lib/python/omeroweb/settings.py.orig
++++ /opt/omero/OMERO.py-5.4.8-ice36-b99/lib/python/omeroweb/settings.py
+@@ -87,7 +87,7 @@
+     ' (proc.%(process)5.5d) %(funcName)s():%(lineno)d'
+     ' HTTP %(status_code)d %(request)s')
+
+-LOGGING_CLASS = 'omero_ext.cloghandler.ConcurrentRotatingFileHandler'
++LOGGING_CLASS = 'logging.StreamHandler'
+ LOGSIZE = 500000000
+
+
+@@ -114,19 +114,11 @@
+         'default': {
+             'level': 'DEBUG',
+             'class': LOGGING_CLASS,
+-            'filename': os.path.join(
+-                LOGDIR, 'OMEROweb.log').replace('\\', '/'),
+-            'maxBytes': LOGSIZE,
+-            'backupCount': 10,
+             'formatter': 'standard',
+         },
+         'request_handler': {
+             'level': 'DEBUG',
+             'class': LOGGING_CLASS,
+-            'filename': os.path.join(
+-                LOGDIR, 'OMEROweb.log').replace('\\', '/'),
+-            'maxBytes': LOGSIZE,
+-            'backupCount': 10,
+             'filters': ['require_debug_false'],
+             'formatter': 'full_request',
+         },

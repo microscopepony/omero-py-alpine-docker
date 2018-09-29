@@ -1,0 +1,5 @@
+config drop default
+config set omero.web.check_version false
+config set omero.web.secure true
+config set omero.web.application_server.host 0.0.0.0
+config append -- omero.web.middleware '{"index": 0, "class": "whitenoise.middleware.WhiteNoiseMiddleware"}'
