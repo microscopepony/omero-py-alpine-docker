@@ -62,6 +62,7 @@ RUN apk --no-cache add \
     chown -R omero:omero /opt/omero/OMERO.server/
 
 RUN apk --no-cache add \
+        postgresql-client \
         py-pillow \
         py-jinja2 \
         py-numpy \
@@ -69,5 +70,28 @@ RUN apk --no-cache add \
         py-scipy \
         py-yaml
 
+# Pytables
+# https://gist.github.com/nvgoldin/9dc71efc95fb7319f15fa56a5d60deb8
+RUN apk --no-cache add \
+        --repository https://dl-3.alpinelinux.org/alpine/edge/testing \
+        hdf5 && \
+    apk --no-cache add --virtual build-dependencies-pytables \
+        build-base \
+        py-numpy-dev \
+        python2-dev && \
+    apk --no-cache add --virtual build-dependencies-pytables \
+        --repository https://dl-3.alpinelinux.org/alpine/edge/testing \
+        hdf5-dev && \
+    pip install --no-cache-dir --no-binary :all: tables && \
+    apk del build-dependencies-pytables
+
+RUN mkdir /config /OMERO && \
+    chown omero:omero /OMERO
+
+COPY entrypoint.sh /usr/local/bin/
+COPY 00-config.omero /config/
+
+EXPOSE 4063 4064
 USER omero
-CMD ["omero"]
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["omero", "admin", "start", "--foreground"]

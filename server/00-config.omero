@@ -1,0 +1,5 @@
+config drop default
+config set omero.data.dir /OMERO
+config set omero.db.name omero
+config set omero.db.user omero
+config set omero.db.pass omero
