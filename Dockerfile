@@ -1,4 +1,4 @@
-FROM library/alpine:3.7
+FROM library/alpine:3.8
 MAINTAINER spli@dundee.ac.uk
 
 # Basic utilities and Ice runtime libraries
