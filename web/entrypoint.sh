@@ -10,4 +10,8 @@ for f in /config/*.omero; do
   fi
 done
 
+if [ -n "${OMEROHOST:-}" ]; then
+  omero config set omero.web.server_list "[[\"$OMEROHOST\", 4064, \"omero\"]]"
+fi
+
 exec "$@"
