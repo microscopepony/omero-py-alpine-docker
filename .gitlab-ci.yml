@@ -13,5 +13,7 @@ build:
   stage: build
   script:
     - sh build.sh
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-py
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-web
+    - |
+        for SUFFIX in py web; do
+          docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$SUFFIX;
+        done
