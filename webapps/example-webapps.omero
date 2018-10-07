@@ -1,0 +1,18 @@
+# omero-figure
+config append omero.web.apps '"omero_figure"'
+config append omero.web.ui.top_links '["Figure", "figure_index", {"title": "Open Figure in new tab", "target": "_blank"}]'
+config append omero.web.open_with '["omero_figure", "new_figure", {"supported_objects": ["images"], "target": "_blank", "label": "OMERO.figure"}]'
+
+# omero-iviewer
+config append omero.web.apps '"omero_iviewer"'
+config set omero.web.viewer.view omero_iviewer.views.index
+config append omero.web.open_with '["omero_iviewer", "omero_iviewer_index", {"supported_objects":["images", "dataset", "well"], "script_url": "omero_iviewer/openwith.js", "label": "OMERO.iviewer"}]'
+
+# omero-mapr
+config append omero.web.apps '"omero_mapr"'
+config append omero.web.mapr.config '{"menu": "anyvalue", "config":{"default":["Any Value"], "all":[], "ns":["openmicroscopy.org/omero/client/mapAnnotation"], "label":"Any"}}'
+config append omero.web.ui.top_links '["Mapr", {"viewname": "maprindex_anyvalue"}, {"title": "Find Any Value"}]'
+
+# omero-parade
+config append omero.web.apps '"omero_parade"'
+config append omero.web.ui.center_plugins '["Parade", "omero_parade/init.js.html", "omero_parade"]'
