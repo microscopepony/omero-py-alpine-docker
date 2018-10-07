@@ -12,6 +12,6 @@ before_script:
 build:
   stage: build
   script:
-    - bash build.sh
+    - sh build.sh
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-py
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-web

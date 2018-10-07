@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 REPO="${CI_REGISTRY_IMAGE:-omero-py-alpine}"
