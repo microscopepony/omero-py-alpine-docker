@@ -53,14 +53,5 @@ RUN apk --no-cache add \
     chown -R omero:omero /opt/omero/OMERO.py/ && \
     patch -p0 < /root/no-pillow-message.patch
 
-# OMERO.web requirements \
-#RUN apk --no-cache add \
-#        py-pillow
-#        py-jinja2 \
-#        py-gunicorn \
-#        py-redis \
-#        py-yaml && \
-#    pip install -r /opt/omero/OMERO.py/share/web/requirements-py27.txt
-
 USER omero
 CMD ["omero"]
