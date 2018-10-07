@@ -20,7 +20,10 @@ COPY omeroweb-settings-consolelog.patch /opt/omero/
 RUN cd /opt/omero/OMERO.py/lib/python/omeroweb && \
     patch -i /opt/omero/omeroweb-settings-consolelog.patch
 
-RUN mkdir /config
+# Include limited backwards compatibility with openmicroscopy/omero-web
+RUN mkdir /config && \
+    mkdir -p /opt/omero/web && \
+    ln -s /config /opt/omero/web/config
 
 COPY entrypoint.sh /usr/local/bin/
 COPY 00-config.omero /config/
