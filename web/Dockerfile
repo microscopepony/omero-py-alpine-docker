@@ -1,4 +1,4 @@
-FROM omero-py-alpine-docker
+FROM omero-py-alpine:py
 MAINTAINER spli@dundee.ac.uk
 
 USER root

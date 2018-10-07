@@ -1,0 +1,17 @@
+image: docker:stable
+services:
+  - docker:dind
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+build:
+  stage: build
+  script:
+    - bash build.sh
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-py
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-web
