@@ -40,7 +40,7 @@ RUN apk --no-cache add --virtual build-dependencies \
 
 # Get rid of the annoying "ERROR:omero.gateway:No Pillow installed" message
 ADD no-pillow-message.patch /root/
-ARG OMERO_VERSION=5.4.8
+ARG OMERO_VERSION=5.4.9
 RUN apk --no-cache add \
     # omego requires six \
     py2-six && \
