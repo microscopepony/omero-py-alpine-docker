@@ -3,6 +3,10 @@ config append omero.web.apps '"omero_figure"'
 config append omero.web.ui.top_links '["Figure", "figure_index", {"title": "Open Figure in new tab", "target": "_blank"}]'
 config append omero.web.open_with '["omero_figure", "new_figure", {"supported_objects": ["images"], "target": "_blank", "label": "OMERO.figure"}]'
 
+# omero_fpbioimage
+config append omero.web.apps '"omero_fpbioimage"'
+config append omero.web.open_with '["omero_fpbioimage", "fpbioimage_index", {"script_url": "fpbioimage/openwith.js", "supported_objects": ["image"], "label": "FPBioimage"}]'
+
 # omero-iviewer
 config append omero.web.apps '"omero_iviewer"'
 config set omero.web.viewer.view omero_iviewer.views.index

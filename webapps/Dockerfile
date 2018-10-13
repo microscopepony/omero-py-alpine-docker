@@ -10,6 +10,7 @@ RUN apk --no-cache add \
         py-requests && \
     pip install \
         omero-figure \
+        omero-fpbioimage \
         omero-iviewer \
         omero-mapr \
         omero-parade
