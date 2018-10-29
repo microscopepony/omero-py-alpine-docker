@@ -1,4 +1,4 @@
-FROM omero-py-alpine:py
+FROM omero-py-alpine/omero-py:latest
 MAINTAINER spli@dundee.ac.uk
 
 USER root
