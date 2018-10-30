@@ -2,8 +2,8 @@
 set -e
 
 REPO="${CI_REGISTRY_IMAGE:-omero-py-alpine}"
-if [ -n "$CI_COMMIT_REF_SLUG" ]; then
-  TAG_PREFIX="$CI_COMMIT_REF_SLUG"
+if [ -n "$CI_COMMIT_REF_NAME" ]; then
+  TAG_PREFIX="$CI_COMMIT_REF_NAME"
 else
   TAG_PREFIX="latest"
 fi
